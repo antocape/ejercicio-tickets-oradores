@@ -72,15 +72,6 @@ function validar() {
     todo_correcto = false;
   }
   
-  /*Para comprobar la cantidad, utilizaremos la función isNaN(), que nos dirá si el valor
-  ingresado NO es un número (NaN son las siglas de Not a Number). Si la cantidad no es un
-  número, todo_correcto será false.*/
-  if (isNaN(parseInt(cantidad.value))) {
-    alert('Debe ingresar solo numeros');
-    todo_correcto = false;
-    
-  }
-  
   /*Para comprobar el email haremos uso de una expresión regular. Esto es una secuencia
   de caracteres que nos dirá si el valor ingresado por el usuario tiene estructura de
   correo electrónico. Lo que hacemos es obtener el value del campo de texto destinado
@@ -92,6 +83,18 @@ function validar() {
     alert('Mail incorrecto');  
     todo_correcto = false;
   }
+
+  /*Para comprobar la cantidad, utilizaremos la función isNaN(), que nos dirá si el valor
+  ingresado NO es un número (NaN son las siglas de Not a Number). Si la cantidad no es un
+  número, todo_correcto será false.*/
+
+  if (isNaN(parseInt(cantidad.value))) {
+    alert('Debe ingresar solo numeros');
+    todo_correcto = false;
+    
+  }
+
+/*Para comprobar que selecciona categoria*/
 
   if( categoria.selectedIndex == null || categoria.selectedIndex == 0 ) {
     alert('Debe seleccionar una opción');
@@ -109,10 +112,11 @@ function validar() {
   if(todo_correcto){
     calcularMonto();
     alert('Le llegará el comprobante al mail');
+    
+   /*limpiaRegistros();*/
   }
 }
 
-limpiaRegistros();
 /*function validar () {
   let emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let todoCorrecto = true
