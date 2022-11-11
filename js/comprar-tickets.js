@@ -12,7 +12,7 @@ const btnClear = document.querySelector("#btnBorrar");
 let totalPago = document.querySelector("#totalPago");
 
 
-btnResumen.addEventListener("click", calcularMonto);
+/*btnResumen.addEventListener("click", calcularMonto);*/
 
 
 
@@ -47,6 +47,8 @@ function calcularDescuento() {
   }
 }
 
+btnResumen.addEventListener("click", validar);
+
 function validar() {
 
   /*creo una variable de tipo booleano que en principio tendrá un valor true(verdadero),
@@ -59,20 +61,24 @@ function validar() {
   devolverá false.*/
   
   if(nombre.value.length < 2 ){
-      todo_correcto = false;
+    alert('Nombre incorrecto'); 
+    todo_correcto = false;
   }
   
   /*Hacemos lo mismo con el campo apellido. En este caso le pediremos al usuario que
   introduzca al menos 2 caracteres.*/
   if(apellido.value.length < 2 ){
-      todo_correcto = false;
+    alert('El apellido no es válido');  
+    todo_correcto = false;
   }
   
   /*Para comprobar la cantidad, utilizaremos la función isNaN(), que nos dirá si el valor
   ingresado NO es un número (NaN son las siglas de Not a Number). Si la cantidad no es un
   número, todo_correcto será false.*/
-  if(isNaN(cantidadTickets.value)){
-      todo_correcto = false;
+  if (isNaN(parseInt(cantidad.value))) {
+    alert('Debe ingresar solo numeros');
+    todo_correcto = false;
+    
   }
   
   /*Para comprobar el email haremos uso de una expresión regular. Esto es una secuencia
@@ -82,20 +88,31 @@ function validar() {
   trabajar con expresiones regulares).*/
   var expresion = /^[a-z][\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
   
-  if (!expresion.test(email)){
-      todo_correcto = false;
+  if (!expresion.test(email.value)){
+    alert('Mail incorrecto');  
+    todo_correcto = false;
   }
+
+  if( categoria.selectedIndex == null || categoria.selectedIndex == 0 ) {
+    alert('Debe seleccionar una opción');
+    return false;
+}
   
   /*Por último, y como aviso para el usuario, si no está todo bién, osea, si la variable
   todo_correcto ha devuelto false al menos una vez, generaremos una alerta advirtiendo
   al usuario de que algunos datos ingresados no son los que esperamos.*/
   if(!todo_correcto){
-  alert('Algunos campos no están correctos, vuelva a revisarlos');
+    alert('Algunos campos no están correctos, vuelva a revisarlos');
   }
   
-  return todo_correcto;
+  /*return todo_correcto;*/
+  if(todo_correcto){
+    calcularMonto();
+    alert('Le llegará el comprobante al mail');
   }
+}
 
+limpiaRegistros();
 /*function validar () {
   let emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let todoCorrecto = true
